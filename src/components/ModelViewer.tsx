@@ -1,7 +1,7 @@
 'use client';
 
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useProgress, Html, useGLTF } from '@react-three/drei';
 
 /**
@@ -20,8 +20,14 @@ function Loader(): React.ReactElement {
  * @returns {React.ReactElement} Le modèle 3D chargé et affiché dans la scène.
  */
 function GltfModel({ url }: { url: string }): React.ReactElement {
+  const ref = useRef<any>();
   const { scene } = useGLTF(url);
-  return <primitive object={scene} scale={1} />;
+  useFrame(() => {
+    if (ref.current) {
+      ref.current.rotation.y += 0.01;
+    }
+  });
+  return <primitive ref={ref} object={scene} scale={1} />;
 }
 
 /**
