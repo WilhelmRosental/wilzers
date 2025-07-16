@@ -45,5 +45,4 @@ const ModelViewer = ({ glbPath = '/model.glb' }: { glbPath?: string }): React.Re
 export default ModelViewer;
 
 // Nécessaire pour le support du chargement GLTF dans Next.js
-// @ts-ignore
-useGLTF.preload && useGLTF.preload('/model.glb'); 
+if (useGLTF.preload) useGLTF.preload('/model.glb'); 
