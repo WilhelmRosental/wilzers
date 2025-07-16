@@ -3,6 +3,7 @@
 import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useProgress, Html, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 
 /**
  * Composant de chargement affichant le pourcentage de chargement du modèle 3D.
@@ -20,7 +21,7 @@ function Loader(): React.ReactElement {
  * @returns {React.ReactElement} Le modèle 3D chargé et affiché dans la scène.
  */
 function GltfModel({ url }: { url: string }): React.ReactElement {
-  const ref = useRef<any>();
+  const ref = useRef<THREE.Object3D>(null);
   const { scene } = useGLTF(url);
   useFrame(() => {
     if (ref.current) {
